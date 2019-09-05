@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="CKModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="hoa">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="stt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Name" Type="String" MaxLength="99" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="IDSpecies" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Characteristics" Type="String" MaxLength="999" FixedLength="false" Unicode="true" />
+    <Property Name="TheForest" Type="Boolean" />
+    <NavigationProperty Name="species" Relationship="Self.FK_hoa_species" FromRole="hoa" ToRole="species" />
+  </EntityType>
+  <EntityType Name="species">
+    <Key>
+      <PropertyRef Name="IDSpecies" />
+    </Key>
+    <Property Name="IDSpecies" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="SpeciesName" Type="String" MaxLength="99" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="hoas" Relationship="Self.FK_hoa_species" FromRole="species" ToRole="hoa" />
+  </EntityType>
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="taikhoan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="userpower" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="address" Type="String" MaxLength="999" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <Association Name="FK_hoa_species">
+    <End Role="species" Type="Self.species" Multiplicity="0..1" />
+    <End Role="hoa" Type="Self.hoa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="species">
+        <PropertyRef Name="IDSpecies" />
+      </Principal>
+      <Dependent Role="hoa">
+        <PropertyRef Name="IDSpecies" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="CKEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="hoas" EntityType="Self.hoa" />
+    <EntitySet Name="species" EntityType="Self.species" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="taikhoans" EntityType="Self.taikhoan" />
+    <AssociationSet Name="FK_hoa_species" Association="Self.FK_hoa_species">
+      <End Role="species" EntitySet="species" />
+      <End Role="hoa" EntitySet="hoas" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

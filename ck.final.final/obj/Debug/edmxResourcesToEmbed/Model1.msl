@@ -1,0 +1,49 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="CKModelStoreContainer" CdmEntityContainer="CKEntities">
+    <EntitySetMapping Name="hoas">
+      <EntityTypeMapping TypeName="CKModel.hoa">
+        <MappingFragment StoreEntitySet="hoa">
+          <ScalarProperty Name="stt" ColumnName="stt" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="IDSpecies" ColumnName="IDSpecies" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="Characteristics" ColumnName="Characteristics" />
+          <ScalarProperty Name="TheForest" ColumnName="TheForest" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="species">
+      <EntityTypeMapping TypeName="CKModel.species">
+        <MappingFragment StoreEntitySet="species">
+          <ScalarProperty Name="IDSpecies" ColumnName="IDSpecies" />
+          <ScalarProperty Name="SpeciesName" ColumnName="SpeciesName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="CKModel.sysdiagram">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="taikhoans">
+      <EntityTypeMapping TypeName="CKModel.taikhoan">
+        <MappingFragment StoreEntitySet="taikhoan">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="username" ColumnName="username" />
+          <ScalarProperty Name="userpassword" ColumnName="userpassword" />
+          <ScalarProperty Name="userpower" ColumnName="userpower" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="address" ColumnName="address" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="hoa">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="stt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ID" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="99" Nullable="false" />
+    <Property Name="IDSpecies" Type="nvarchar" MaxLength="80" />
+    <Property Name="color" Type="nvarchar" MaxLength="50" />
+    <Property Name="Characteristics" Type="nvarchar" MaxLength="999" />
+    <Property Name="TheForest" Type="bit" />
+  </EntityType>
+  <EntityType Name="species">
+    <Key>
+      <PropertyRef Name="IDSpecies" />
+    </Key>
+    <Property Name="IDSpecies" Type="nvarchar" MaxLength="80" Nullable="false" />
+    <Property Name="SpeciesName" Type="nvarchar" MaxLength="99" Nullable="false" />
+  </EntityType>
+  <EntityType Name="taikhoan">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="username" Type="nvarchar" MaxLength="50" />
+    <Property Name="userpassword" Type="nvarchar" MaxLength="50" />
+    <Property Name="userpower" Type="nvarchar" MaxLength="50" />
+    <Property Name="name" Type="nvarchar" MaxLength="50" />
+    <Property Name="address" Type="nvarchar" MaxLength="999" />
+  </EntityType>
+  <Association Name="FK_hoa_species">
+    <End Role="species" Type="Self.species" Multiplicity="0..1" />
+    <End Role="hoa" Type="Self.hoa" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="species">
+        <PropertyRef Name="IDSpecies" />
+      </Principal>
+      <Dependent Role="hoa">
+        <PropertyRef Name="IDSpecies" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DbModelStoreContainer">
+    <EntitySet Name="hoa" EntityType="Self.hoa" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="species" EntityType="Self.species" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="taikhoan" EntityType="Self.taikhoan" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_hoa_species" Association="Self.FK_hoa_species">
+      <End Role="species" EntitySet="species" />
+      <End Role="hoa" EntitySet="hoa" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

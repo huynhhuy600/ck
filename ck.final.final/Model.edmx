@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="hoa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="stt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ID" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="99" Nullable="false" />
+          <Property Name="IDSpecies" Type="nvarchar" MaxLength="80" />
+          <Property Name="color" Type="nvarchar" MaxLength="50" />
+          <Property Name="Characteristics" Type="nvarchar" MaxLength="999" />
+          <Property Name="TheForest" Type="bit" />
+        </EntityType>
+        <EntityType Name="species">
+          <Key>
+            <PropertyRef Name="IDSpecies" />
+          </Key>
+          <Property Name="IDSpecies" Type="nvarchar" MaxLength="80" Nullable="false" />
+          <Property Name="SpeciesName" Type="nvarchar" MaxLength="99" Nullable="false" />
+        </EntityType>
+        <EntityType Name="taikhoan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="username" Type="nvarchar" MaxLength="50" />
+          <Property Name="userpassword" Type="nvarchar" MaxLength="50" />
+          <Property Name="userpower" Type="nvarchar" MaxLength="50" />
+          <Property Name="name" Type="nvarchar" MaxLength="50" />
+          <Property Name="address" Type="nvarchar" MaxLength="999" />
+        </EntityType>
+        <Association Name="FK_hoa_species">
+          <End Role="species" Type="Self.species" Multiplicity="0..1" />
+          <End Role="hoa" Type="Self.hoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="species">
+              <PropertyRef Name="IDSpecies" />
+            </Principal>
+            <Dependent Role="hoa">
+              <PropertyRef Name="IDSpecies" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbModelStoreContainer">
+          <EntitySet Name="hoa" EntityType="Self.hoa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="species" EntityType="Self.species" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="taikhoan" EntityType="Self.taikhoan" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_hoa_species" Association="Self.FK_hoa_species">
+            <End Role="species" EntitySet="species" />
+            <End Role="hoa" EntitySet="hoa" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="hoa">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="stt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ID" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="99" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IDSpecies" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+          <Property Name="color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Characteristics" Type="String" MaxLength="999" FixedLength="false" Unicode="true" />
+          <Property Name="TheForest" Type="Boolean" />
+          <NavigationProperty Name="species" Relationship="Self.FK_hoa_species" FromRole="hoa" ToRole="species" />
+        </EntityType>
+        <EntityType Name="species">
+          <Key>
+            <PropertyRef Name="IDSpecies" />
+          </Key>
+          <Property Name="IDSpecies" Type="String" MaxLength="80" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="SpeciesName" Type="String" MaxLength="99" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="hoas" Relationship="Self.FK_hoa_species" FromRole="species" ToRole="hoa" />
+        </EntityType>
+        <EntityType Name="taikhoan">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="username" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userpassword" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="userpower" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="name" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="address" Type="String" MaxLength="999" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <Association Name="FK_hoa_species">
+          <End Role="species" Type="Self.species" Multiplicity="0..1" />
+          <End Role="hoa" Type="Self.hoa" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="species">
+              <PropertyRef Name="IDSpecies" />
+            </Principal>
+            <Dependent Role="hoa">
+              <PropertyRef Name="IDSpecies" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="hoas" EntityType="Self.hoa" />
+          <EntitySet Name="species" EntityType="Self.species" />
+          <EntitySet Name="taikhoans" EntityType="Self.taikhoan" />
+          <AssociationSet Name="FK_hoa_species" Association="Self.FK_hoa_species">
+            <End Role="species" EntitySet="species" />
+            <End Role="hoa" EntitySet="hoas" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DbModelStoreContainer" CdmEntityContainer="DbEntities">
+          <EntitySetMapping Name="hoas">
+            <EntityTypeMapping TypeName="DbModel.hoa">
+              <MappingFragment StoreEntitySet="hoa">
+                <ScalarProperty Name="stt" ColumnName="stt" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="IDSpecies" ColumnName="IDSpecies" />
+                <ScalarProperty Name="color" ColumnName="color" />
+                <ScalarProperty Name="Characteristics" ColumnName="Characteristics" />
+                <ScalarProperty Name="TheForest" ColumnName="TheForest" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="species">
+            <EntityTypeMapping TypeName="DbModel.species">
+              <MappingFragment StoreEntitySet="species">
+                <ScalarProperty Name="IDSpecies" ColumnName="IDSpecies" />
+                <ScalarProperty Name="SpeciesName" ColumnName="SpeciesName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="taikhoans">
+            <EntityTypeMapping TypeName="DbModel.taikhoan">
+              <MappingFragment StoreEntitySet="taikhoan">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="username" ColumnName="username" />
+                <ScalarProperty Name="userpassword" ColumnName="userpassword" />
+                <ScalarProperty Name="userpower" ColumnName="userpower" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="address" ColumnName="address" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
